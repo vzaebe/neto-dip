@@ -1,0 +1,11 @@
+.login__error {
+  color: #ff4444;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+} 

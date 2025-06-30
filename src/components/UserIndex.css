@@ -1,0 +1,1092 @@
+/* Основные стили для React компонентов */
+
+/* Общие стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Кнопки */
+.button {
+  display: block;
+  padding: 12px 32px;
+  border: none;
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.24);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.save-button {
+  background-color: #16A6AF;
+}
+
+.save-button:hover {
+  background-color: #277c82;
+}
+
+.cancel-button {
+  background-color: #fff;
+  color: #000000;
+}
+
+.cancel-button:hover {
+  background-color: #bbbbbb;
+}
+
+/* Логотип */
+.logo {
+  text-transform: uppercase;
+  font-size: 34px;
+  font-weight: 400;
+}
+
+.logo-letter {
+  font-weight: 100;
+}
+
+/* Пользовательская часть */
+.user {
+  width: 100%;
+  margin: auto;
+  background: center no-repeat url(/images/user-background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.user::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.user-header {
+  box-sizing: border-box;
+  margin: auto;
+  max-width: 972px;
+  padding: 35px 42px 35px 104px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-header__button {
+  background-color: #16A6AF;
+  width: 189px;
+}
+
+.user-header__button:hover {
+  background-color: #277c82;
+}
+
+.user-nav {
+  margin: auto;
+  max-width: 972px;
+  padding: 0 42px;
+}
+
+.nav__list {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav__item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav__item_active {
+  background-color: #16A6AF;
+}
+
+.nav__item-red {
+  color: #ff4444;
+}
+
+.date__day {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.date__number {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.user-index {
+  margin: auto;
+  max-width: 972px;
+  padding: 0 42px 50px;
+}
+
+/* Фильмы и сеансы */
+.movies-seance {
+  margin-bottom: 50px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.movie__info {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.movie__poster {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.movie__description {
+  flex: 1;
+}
+
+.movie__name {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.movie__synopsis {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+
+.movie__data {
+  display: flex;
+  gap: 20px;
+}
+
+.movie__time, .movie__country {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.movie-seance__halls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.movie-seance__hall-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.movie-seance__time-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+}
+
+.movie-seance__time-item {
+  padding: 8px 16px;
+  background-color: #16A6AF;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.movie-seance__time-item:hover {
+  background-color: #277c82;
+}
+
+.movie-seance__time-item_disabled {
+  background-color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.movie-seance__time-item_disabled:hover {
+  background-color: #666;
+}
+
+/* Зал */
+.user-hall {
+  width: 100%;
+  margin: auto;
+  background: center no-repeat url(/images/user-background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  padding: 50px 20px;
+}
+
+.user-hall__info {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.user-hall__seans-name {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.user-hall__seans-start {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.user-hall__hall-name {
+  font-size: 16px;
+  color: #ccc;
+}
+
+.user-scheme {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.user-scheme__screen {
+  background-color: #16A6AF;
+  padding: 10px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.user-scheme__wrapper {
+  margin-bottom: 30px;
+}
+
+.user-scheme__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.user-scheme__seat {
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.user-scheme__seat:hover {
+  transform: scale(1.1);
+}
+
+.user__free-seat {
+  background-color: #16A6AF;
+}
+
+.user__vip-seat {
+  background-color: #ffd700;
+}
+
+.user__busy-seat {
+  background-color: #ff4444;
+}
+
+.user__selected-seat {
+  background-color: #00ff00;
+  border: 2px solid #fff;
+}
+
+.disabled-seat {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.user-scheme__info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.user-scheme__info-seat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.user-hall__summary {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.user-hall__selected-seats,
+.user-hall__total-price {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.user-hall__reserve {
+  background-color: #16A6AF;
+  margin: 0 auto;
+}
+
+.user-hall__reserve:hover {
+  background-color: #277c82;
+}
+
+/* Оплата */
+.payment {
+  width: 100%;
+  margin: auto;
+  background: center no-repeat url(/images/user-background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  padding: 50px 20px;
+}
+
+.payment-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.payment__title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.ticket-info {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.ticket-info__hint {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.ticket-info__hint:nth-last-of-type(n+2) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
+}
+
+.ticket-info__qr {
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.ticket-info__button {
+  background-color: #16A6AF;
+  margin: 20px auto 0;
+}
+
+.ticket-info__button:hover {
+  background-color: #277c82;
+}
+
+/* Админ панель */
+.admin {
+  width: 100%;
+  margin: auto;
+  background: center no-repeat url(/images/admin-background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.admin::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.admin-header {
+  box-sizing: border-box;
+  margin: auto;
+  max-width: 972px;
+  padding: 35px 42px 35px 104px;
+}
+
+.admin-header__text {
+  letter-spacing: 5px;
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.manage {
+  margin: auto;
+  max-width: 962px;
+  padding: 0 42px 50px;
+}
+
+/* Заголовки секций */
+.section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #63536C;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+}
+
+.section__title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.section__header-button {
+  width: 30px;
+  height: 30px;
+  background-color: #16A6AF;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.section__header-button::before,
+.section__header-button::after {
+  content: '';
+  position: absolute;
+  background-color: #fff;
+  width: 20px;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.section__header-button::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.manage__content {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+/* Залы */
+.halls__list {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.halls__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.halls__item-delete {
+  width: 20px;
+  height: 20px;
+  background-color: #ff4444;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.halls__item-delete::before,
+.halls__item-delete::after {
+  content: '';
+  position: absolute;
+  background-color: #fff;
+  width: 12px;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.halls__item-delete::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.halls__add-button {
+  background-color: #16A6AF;
+}
+
+/* Выбор зала */
+.select-hall__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.select-hall__item {
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.select-hall__item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.select-hall__item_selected {
+  background-color: #16A6AF;
+}
+
+/* Конфигурация мест */
+.config-seat {
+  margin-bottom: 30px;
+}
+
+.config-seat__form {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.config-seat__label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.config-seat__input {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;
+}
+
+.config-seat__form-cross {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Схема зала */
+.hall {
+  margin-bottom: 30px;
+}
+
+.hall__info {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.seats-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.seat {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.seat:hover {
+  transform: scale(1.1);
+}
+
+.standart {
+  background-color: #16A6AF;
+}
+
+.vip {
+  background-color: #ffd700;
+}
+
+.disabled-seat {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.hall__hint {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.hall__scheme {
+  margin-bottom: 30px;
+}
+
+.hall__screen {
+  background-color: #16A6AF;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.hall__scheme-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.manage__changes-btn {
+  text-align: center;
+}
+
+/* Цены */
+.prices__config {
+  margin-bottom: 30px;
+}
+
+.prices__set {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.prices__set-text {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prices__set-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.prices__set-input {
+  width: 120px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;
+}
+
+/* Сеансы */
+.sessions__add {
+  background-color: #16A6AF;
+  margin-bottom: 30px;
+}
+
+.admin-movie__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.admin-movie {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  cursor: grab;
+}
+
+.admin-movie:active {
+  cursor: grabbing;
+}
+
+.admin-movie__poster {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.admin-movie__name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.admin-movie__duration {
+  font-size: 12px;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.admin-movie__delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4444;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.admin-movie__delete-btn::before,
+.admin-movie__delete-btn::after {
+  content: '';
+  position: absolute;
+  background-color: #fff;
+  width: 12px;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.admin-movie__delete-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.seances__hall-list {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.seances__hall {
+  margin-bottom: 20px;
+}
+
+.seances__hall-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.seances__timeline {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 4px;
+  min-height: 60px;
+  position: relative;
+}
+
+.seance {
+  display: inline-block;
+  background-color: #16A6AF;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin: 5px;
+  cursor: grab;
+  position: relative;
+}
+
+.seance:active {
+  cursor: grabbing;
+}
+
+.seance__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.seance__name {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.seance__start {
+  font-size: 12px;
+}
+
+.seance-delete {
+  width: 16px;
+  height: 16px;
+  background-color: #ff4444;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.seance-delete::before,
+.seance-delete::after {
+  content: '';
+  position: absolute;
+  background-color: #fff;
+  width: 10px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.seance-delete::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Продажи */
+.sales__text {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.sales__button {
+  background-color: #16A6AF;
+  margin: 0 auto;
+}
+
+/* Попапы */
+.popup-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup {
+  background-color: #fff;
+  color: #000;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.popup__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popup__title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.popup__close {
+  width: 20px;
+  height: 20px;
+  background-color: #ff4444;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.popup__close::before,
+.popup__close::after {
+  content: '';
+  position: absolute;
+  background-color: #fff;
+  width: 12px;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.popup__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.popup__form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popup__label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.popup__input,
+.popup__textarea,
+.popup__select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.popup__textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.popup__buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.popup__add {
+  background-color: #16A6AF;
+  flex: 1;
+}
+
+.popup__cancel {
+  background-color: #666;
+  flex: 1;
+}
+
+/* Адаптивность */
+@media screen and (max-width: 1024px) {
+  .admin-header,
+  .user-header {
+    padding: 20px;
+  }
+  
+  .popup__form {
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .admin-header,
+  .user-header {
+    padding: 15px;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .manage__content {
+    padding: 20px;
+  }
+  
+  .section__header::before,
+  .section__header::after {
+    display: none;
+  }
+  
+  .halls__add-button {
+    width: 100%;
+  }
+  
+  .section__header-button {
+    display: none;
+  }
+  
+  .popup__buttons {
+    flex-direction: column;
+  }
+  
+  .nav__item {
+    padding: 8px 12px;
+  }
+  
+  .movie__info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .movie__poster {
+    width: 150px;
+    height: 225px;
+    margin: 0 auto;
+  }
+  
+  .movie-seance__time-list {
+    justify-content: center;
+  }
+  
+  .user-scheme__info {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hall__info {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .config-seat__form {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .prices__set {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .admin-movie__list {
+    grid-template-columns: 1fr;
+  }
+} 

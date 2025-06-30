@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- 🔑  Staff authorization page for back-office. Updated 2025 -->
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="YOUR_NAME">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="css/base-styles.css">
+</head>
+<body class="container admin">
+    <header class="backofficeTopbar">
+        <h1 class="backofficeLogo logo">идём<span class="logo-letter">в</span>кино</h1>
+        <p class="backofficeSubtitle">Администраторррская</p>
+    </header>
+    <section class="authCard">
+        <header class="authCardHeader">
+            <h2 class="authCardTitle">Авторизация</h2>
+        </header>
+        <form class="authForm">
+            <label class="authLabelEmail" for="email">E-mail</label>
+            <input class="authInputEmail" type="email" name="login" id="email" placeholder="example@domain.xyz">
+            <label class="authLabelPassword" for="password">Пароль</label>
+            <input class="authInputPassword" type="password" name="password" id="password">
+            <button class="authButton button" type="submit">Авторизоваться</button>
+        </form>
+    </section>
+    <script src="js/login.js"></script>
+</body>
+</html>

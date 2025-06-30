@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- 💳  Payment & ticket confirmation page. 2025 edition -->
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="YOUR_NAME">
+    <title>Оплата билета</title>
+    <link rel="stylesheet" href="css/base-styles.css">
+
+</head>
+<body class="user">
+    <header class="viewerTopbar">
+        <h1 class="viewerLogo logo">идём<span class="logo-letter">в</span>кино</h1>
+    </header>
+    <main class="payment">
+        <div class="payment-header">
+            <h2 class="payment__title">Вы выбрали билеты:</h2>
+        </div>
+        <div class="ticket-info">
+            <button class="ticket-info__button button">Получить код бронирования</button>
+            <div class="qr-wrapper" id="qr1"></div>
+            <p class="ticket-info__hint">После оплаты билет будет доступен в этом окне, а также придёт вам на почту. Покажите QR-код нашему контроллёру у входа в зал.</p>
+            <p class="ticket-info__hint">Приятного просмотра!</p>
+        </div>
+    </main>
+    <script defer src="js/xhr.js"></script>
+	<script defer src="js/payment.js"></script>
+	<script defer src="js/QRCreator.js"></script>
+</body>
+</html>
