@@ -9,6 +9,15 @@ const submitFilmButton = document.querySelector('.addfilm__add-film');
 const uploadPosterButton = document.getElementById('add-poster');
 const filmsList = document.querySelector('.admin-movie__list');
 
+// Добавляем валидацию для поля продолжительности
+filmLengthInput.addEventListener('input', (e) => {
+	const value = e.target.value;
+	if (value && Number(value) < 1) {
+		e.target.value = '';
+		alert('Продолжительность фильма не может быть меньше 1 минуты');
+	}
+});
+
 
 addFilmPopupButton.addEventListener('click', (e) => {
 	addFilmPopup.classList.toggle('visually-hidden');
@@ -17,7 +26,31 @@ addFilmPopupButton.addEventListener('click', (e) => {
 submitFilmButton.addEventListener('click', (e) => {
 	e.preventDefault();
 
-	filmsList.innerHTML = "";
+	// Валидация формы
+	if (!filmNameInput.value.trim()) {
+		alert('Введите название фильма');
+		return;
+	}
+
+	if (!filmLengthInput.value || Number(filmLengthInput.value) < 1) {
+		alert('Продолжительность фильма не может быть меньше 1 минуты');
+		return;
+	}
+
+	if (!filmDescInput.value.trim()) {
+		alert('Введите описание фильма');
+		return;
+	}
+
+	if (!filmCountryInput.value.trim()) {
+		alert('Введите страну производства');
+		return;
+	}
+
+	if (!uploadPosterButton.files[0]) {
+		alert('Загрузите постер фильма');
+		return;
+	}
 
 	const params = new FormData(addFilmForm);
 
@@ -27,6 +60,12 @@ submitFilmButton.addEventListener('click', (e) => {
 function renderFilmsList (filmItems) {
 
 	filmsList.innerHTML = "";
+	// Очищаем селект фильмов перед добавлением новых
+	const filmSelect = document.getElementById('film-names');
+	if (filmSelect) {
+		filmSelect.innerHTML = "";
+	}
+	
 	filmItems.forEach((element) => {
 		filmsList.insertAdjacentHTML('beforeend', 
 			`<li class="admin-movie" id="film${element.id}" draggable="true">
@@ -38,7 +77,9 @@ function renderFilmsList (filmItems) {
 				</div>
             </li>`
 			)
-		filmSelect.insertAdjacentHTML('beforeend', `<option value="${element.id}">${element.film_name}</option>`);
+		if (filmSelect) {
+			filmSelect.insertAdjacentHTML('beforeend', `<option value="${element.id}">${element.film_name}</option>`);
+		}
 	});
 
 	const deleteFilmButton = [...document.querySelectorAll('.admin-movie__delete-btn')];
@@ -55,7 +96,10 @@ function renderFilmsList (filmItems) {
 		})
 	});
 
-	renderSessionsList(hallItems, seanceItems);
+	// Обновляем сессии только если они существуют
+	if (hallItems && seanceItems) {
+		renderSessionsList(hallItems, seanceItems);
+	}
 	deleteFilm(deleteFilmButton);
 
 };

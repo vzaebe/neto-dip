@@ -54,7 +54,23 @@ body {
   background-color: #bbbbbb;
 }
 
+/* Скрытые элементы */
+.hidden {
+    display: none !important;
+}
+
 /* Логотип */
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+.logo-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
 .logo {
   text-transform: uppercase;
   font-size: 34px;

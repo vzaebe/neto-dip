@@ -58,14 +58,21 @@ const AdminPanel = () => {
   // Halls
   const handleAddHall = async () => {
     if (!newHallName.trim()) return;
-    await apiService.addHall(newHallName);
+    const result = await apiService.addHall(newHallName);
     setShowAddHall(false);
     setNewHallName('');
-    fetchData();
+    setData(prev => ({
+      ...prev,
+      halls: result.halls
+    }));
   };
   const handleDeleteHall = async (id) => {
-    await apiService.deleteHall(id);
-    fetchData();
+    const result = await apiService.deleteHall(id);
+    setData(prev => ({
+      ...prev,
+      halls: result.halls,
+      seances: result.seances
+    }));
   };
   const handleSelectHallConfig = (id) => {
     setActiveHallId(id);
@@ -95,26 +102,47 @@ const AdminPanel = () => {
   const handleSaveHallConfig = async () => {
     const params = new FormData();
     params.append('hallConfig', JSON.stringify(hallConfig));
-    await apiService.saveConfig(activeHallId, params);
-    fetchData();
+    const result = await apiService.saveConfig(activeHallId, params);
+    setData(prev => ({
+      ...prev,
+      halls: prev.halls.map(hall => 
+        hall.id === result.id ? { ...hall, hall_config: result.hall_config } : hall
+      )
+    }));
   };
 
   // Films
   const handleAddFilm = async () => {
+    setError('');
+    if (Number(newFilm.duration) < 1) {
+      setError('Продолжительность фильма не может быть меньше 1 минуты');
+      return;
+    }
     const params = new FormData();
     params.append('filmName', newFilm.name);
     params.append('filmDuration', newFilm.duration);
     params.append('filmDescription', newFilm.description);
     params.append('filmOrigin', newFilm.origin);
     // params.append('filePoster', newFilm.poster); // file upload
-    await apiService.addFilm(params);
+    const result = await apiService.addFilm(params);
+    if (result.success === false && result.error) {
+      setError(result.error);
+      return;
+    }
     setShowAddFilm(false);
     setNewFilm({ name: '', duration: '', description: '', origin: '', poster: '' });
-    fetchData();
+    setData(prev => ({
+      ...prev,
+      films: result.films
+    }));
   };
   const handleDeleteFilm = async (id) => {
-    await apiService.deleteFilm(id);
-    fetchData();
+    const result = await apiService.deleteFilm(id);
+    setData(prev => ({
+      ...prev,
+      films: result.films,
+      seances: result.seances
+    }));
   };
 
   // Prices
@@ -125,11 +153,29 @@ const AdminPanel = () => {
     setPriceVip(hall.hall_price_vip || '');
   };
   const handleSavePrices = async () => {
+    setError('');
+    if (Number(priceStandart) < 1 || Number(priceVip) < 1) {
+      setError('Цена не может быть меньше 1 рубля');
+      return;
+    }
     const params = new FormData();
     params.append('priceStandart', priceStandart);
     params.append('priceVip', priceVip);
-    await apiService.savePrices(activePriceHallId, params);
-    fetchData();
+    const result = await apiService.savePrices(activePriceHallId, params);
+    if (result.success === false && result.error) {
+      setError(result.error);
+      return;
+    }
+    setData(prev => ({
+      ...prev,
+      halls: prev.halls.map(hall => 
+        hall.id === result.id ? { 
+          ...hall, 
+          hall_price_standart: result.hall_price_standart,
+          hall_price_vip: result.hall_price_vip 
+        } : hall
+      )
+    }));
   };
 
   // Seances
@@ -138,14 +184,20 @@ const AdminPanel = () => {
     params.append('seanceFilmid', newSeance.filmId);
     params.append('seanceHallid', newSeance.hallId);
     params.append('seanceTime', newSeance.time);
-    await apiService.addSession(params);
+    const result = await apiService.addSession(params);
     setShowAddSeance(false);
     setNewSeance({ filmId: '', hallId: '', time: '10:00' });
-    fetchData();
+    setData(prev => ({
+      ...prev,
+      seances: result.seances
+    }));
   };
   const handleDeleteSeance = async (id) => {
-    await apiService.deleteSession(id);
-    fetchData();
+    const result = await apiService.deleteSession(id);
+    setData(prev => ({
+      ...prev,
+      seances: result.seances
+    }));
   };
 
   // Sales
@@ -154,8 +206,11 @@ const AdminPanel = () => {
     const hall = data.halls.find(h => h.id === activeSalesHallId);
     const newOpenStatus = hall.hall_open === 1 ? 0 : 1;
     params.append('open', newOpenStatus);
-    await apiService.openHall(activeSalesHallId, params);
-    fetchData();
+    const result = await apiService.openHall(activeSalesHallId, params);
+    setData(prev => ({
+      ...prev,
+      halls: result.halls
+    }));
   };
 
   // Drag & Drop handlers
@@ -190,8 +245,11 @@ const AdminPanel = () => {
     params.append('seanceTime', time);
     
     try {
-      await apiService.addSession(params);
-      fetchData();
+      const result = await apiService.addSession(params);
+      setData(prev => ({
+        ...prev,
+        seances: result.seances
+      }));
     } catch (error) {
       console.error('Error adding seance:', error);
     }
@@ -211,8 +269,11 @@ const AdminPanel = () => {
     if (!draggedSeance) return;
 
     try {
-      await apiService.deleteSession(draggedSeance.id);
-      fetchData();
+      const result = await apiService.deleteSession(draggedSeance.id);
+      setData(prev => ({
+        ...prev,
+        seances: result.seances
+      }));
     } catch (error) {
       console.error('Error deleting seance:', error);
     }
@@ -225,7 +286,9 @@ const AdminPanel = () => {
   return (
     <div className="admin">
       <header className="admin-header">
-        <h1 className="admin-header__logo logo">идём<span className="logo-letter">в</span>кино</h1>
+        <a href="/" className="logo-link">
+          <h1 className="admin-header__logo logo">идём<span className="logo-letter">в</span>кино</h1>
+        </a>
         <p className="admin-header__text">Администраторррская</p>
       </header>
       <main className="manage">
@@ -368,14 +431,14 @@ const AdminPanel = () => {
                   <div className="prices__set">
                     <div>
                       <label className="prices__set-label">Цена, рублей</label>
-                      <input className="prices__set-input" type="number" value={priceStandart} onChange={e => setPriceStandart(e.target.value)} />
+                      <input className="prices__set-input" type="number" min="1" value={priceStandart} onChange={e => setPriceStandart(e.target.value.replace(/[^\d]/g, ''))} />
                     </div>
                     <span className="prices__set-text">за <span className="standart" /> обычные кресла</span>
                   </div>
                   <div className="prices__set">
                     <div>
                       <label className="prices__set-label">Цена, рублей</label>
-                      <input className="prices__set-input" type="number" value={priceVip} onChange={e => setPriceVip(e.target.value)} />
+                      <input className="prices__set-input" type="number" min="1" value={priceVip} onChange={e => setPriceVip(e.target.value.replace(/[^\d]/g, ''))} />
                     </div>
                     <span className="prices__set-text">за <span className="vip" /> VIP кресла</span>
                   </div>
@@ -473,7 +536,7 @@ const AdminPanel = () => {
                     <label className="popup__label">Название фильма</label>
                     <input className="popup__input" value={newFilm.name} onChange={e => setNewFilm(f => ({...f, name: e.target.value}))} required />
                     <label className="popup__label">Продолжительность фильма (мин.)</label>
-                    <input className="popup__input" type="number" value={newFilm.duration} onChange={e => setNewFilm(f => ({...f, duration: e.target.value}))} required />
+                    <input className="popup__input" type="number" min="1" value={newFilm.duration} onChange={e => setNewFilm(f => ({...f, duration: e.target.value.replace(/[^\d]/g, '')}))} required />
                     <label className="popup__label">Описание фильма</label>
                     <textarea className="popup__textarea" value={newFilm.description} onChange={e => setNewFilm(f => ({...f, description: e.target.value}))} required />
                     <label className="popup__label">Страна</label>
@@ -563,6 +626,7 @@ const AdminPanel = () => {
           </div>
         </section>
       </main>
+      {error && <div className="admin-error" style={{color: 'red', margin: '10px 0'}}>{error}</div>}
     </div>
   );
 };

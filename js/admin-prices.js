@@ -20,14 +20,26 @@ function renderHallPrices () {
 
 function priceInput () {
 	inputPriceStandart.addEventListener('input', (e) => {
-		if (!/\D/.test(inputPriceStandart.value)) {
-			hallPrices[0] = inputPriceStandart.value
+		const value = e.target.value;
+		if (value && Number(value) < 1) {
+			e.target.value = '';
+			alert('Цена не может быть меньше 1 рубля');
+			return;
+		}
+		if (!/\D/.test(value)) {
+			hallPrices[0] = value;
 		}
 	});
 
 	inputPriceVip.addEventListener('input', (e) => {
-		if (!/\D/.test(inputPriceVip.value)) {
-			hallPrices[1] = inputPriceVip.value
+		const value = e.target.value;
+		if (value && Number(value) < 1) {
+			e.target.value = '';
+			alert('Цена не может быть меньше 1 рубля');
+			return;
+		}
+		if (!/\D/.test(value)) {
+			hallPrices[1] = value;
 		}
 	});
 }
@@ -35,6 +47,10 @@ function priceInput () {
 function saveHallPrices () {
 	const priceStandart = hallPrices[0];
 	const priceVip = hallPrices[1];
+	if (Number(priceStandart) < 1 || Number(priceVip) < 1) {
+		alert('Цена не может быть меньше 1 рубля');
+		return;
+	}
 	const params = new FormData();
 	params.set('priceStandart', priceStandart);
 	params.set('priceVip', priceVip);

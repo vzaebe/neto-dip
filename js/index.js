@@ -20,6 +20,31 @@ async function renderFilmCards () {
 	let seancesInfo = data.info.seances;
 
 	filmsInfo.forEach((element, index) => {
+		const filmSeances = []
+		const filmHalls = []
+
+		// Собираем сеансы для данного фильма
+		seancesInfo.forEach((item) => {
+    		const seanceFilm = item.seance_filmid;
+    		if (seanceFilm === element.id) {
+    			filmSeances.push(item);
+    		}
+		})
+
+		// Проверяем, есть ли открытые залы с сеансами для данного фильма
+		hallsInfo.forEach((item) => {
+			if (item.hall_open == 1) {
+    			if (filmSeances.some((e) => e.seance_hallid === item.id)) {
+    				filmHalls.push(item);
+    			}
+			}
+		})
+
+		// Если нет залов с сеансами, не создаем элемент фильма
+		if (filmHalls.length === 0) {
+			return;
+		}
+
 		const filmArticle = document.createElement('section');
 		filmArticle.classList.add('movies-seance');
 		filmArticle.id = 'film'+element.id
@@ -37,42 +62,23 @@ async function renderFilmCards () {
                </div>
             </div> 
 			<div class="movie-seance__halls"></div>`
-	)
+		)
 
 		const filmSchedule = [...document.querySelectorAll('.movie-seance__halls')];
+		const currentFilmIndex = filmSchedule.length - 1;
 
-		
-
-		const filmSeances = []
-		const filmHalls = []
-
-		seancesInfo.forEach((item) => {
-    		const seanceFilm = item.seance_filmid;
-    		if (seanceFilm === element.id) {
-    			filmSeances.push(item);
-    		}
-    		
+		// Добавляем залы для фильма
+		filmHalls.forEach((item) => {
+			filmSchedule[currentFilmIndex].insertAdjacentHTML('beforeend',`
+				<div class="movie-seance__hall" data-id="${item.id}" data-open="1">
+					<h3 class="movie-seance__hall-name">${item.hall_name}</h3>
+					<ul class="movie-seance__time-list">
+					</ul>
+				</div>
+			`)
 		})
 
-		hallsInfo.forEach((item, hallIndex) => {
-			if (!item.hall_open == 0) {
-    			if (filmSeances.some((e) => e.seance_hallid === item.id)) {
-    				filmSchedule[index].insertAdjacentHTML('beforeend',`
-    					<div class="movie-seance__hall" data-id="${item.id}" data-open="1">
-							<h3 class="movie-seance__hall-name">${item.hall_name}</h3>
-							<ul class="movie-seance__time-list">
-							</ul>
-						</div>
-					`)
-    			}
-			}
-		})
-
-		if ([...filmArticle.children.item(1).children].length == 0) {
-			filmArticle.classList.add('hidden')
-		}
-
-	renderFilmSeances(element, filmSeances);
+		renderFilmSeances(element, filmSeances);
 	});
 }
 
@@ -87,10 +93,13 @@ function renderFilmSeances (film, filmSeances) {
 			movieTime.classList.add('movie-seance__time-item');
 			if (chosenDate == todayDateString) {
 				const time = new Date();
-				const timeString = `${time.getHours()}${time.getMinutes()}`
+				const timeString = `${time.getHours()}${String(time.getMinutes()).padStart(2, '0')}`
 				if (timeString > element.seance_time.replace(':', '')) {
 					movieTime.classList.add('movie-seance__time-item_disabled')
 				}
+			} else if (chosenDate < todayDateString) {
+				// Прошедшие даты - неактивны
+				movieTime.classList.add('movie-seance__time-item_disabled')
 			}
 			movieTime.setAttribute('data-time', element.seance_time.replace(':', ''))
 			movieTime.textContent = element.seance_time;

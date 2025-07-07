@@ -17,10 +17,16 @@ function getHallSeats (hall) {
 
 function hallInput () {
 	inputRows.addEventListener('input', (e) => {
-		if (!/\D/.test(inputRows.value)) {
-			if (inputSeats.value) {
+		const value = e.target.value;
+		if (value && Number(value) < 1) {
+			e.target.value = '';
+			alert('Количество рядов не может быть меньше 1');
+			return;
+		}
+		if (!/\D/.test(value)) {
+			if (inputSeats.value && Number(inputSeats.value) >= 1) {
 				hallConfig = [];
-				for (let i = 0; i < inputRows.value; i++) {
+				for (let i = 0; i < value; i++) {
 					hallConfig.push([]);
 					for (let x = 0; x < inputSeats.value; x++) {
 						hallConfig[i].push('standart');
@@ -34,12 +40,18 @@ function hallInput () {
 	});
 
 	inputSeats.addEventListener('input', (e) => {
-		if (!/\D/.test(inputSeats.value)) {
-			if (inputRows.value) {
+		const value = e.target.value;
+		if (value && Number(value) < 1) {
+			e.target.value = '';
+			alert('Количество мест не может быть меньше 1');
+			return;
+		}
+		if (!/\D/.test(value)) {
+			if (inputRows.value && Number(inputRows.value) >= 1) {
 				hallConfig = []
 				for (let i = 0; i < inputRows.value; i++) {
 					hallConfig.push([]);
-					for (let x = 0; x < inputSeats.value; x++) {
+					for (let x = 0; x < value; x++) {
 						hallConfig[i].push('standart');
 					}
 				}

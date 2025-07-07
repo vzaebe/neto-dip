@@ -16,6 +16,11 @@ submitSessionButton.addEventListener('click', (e) => {
 
 function renderSessionsList (halls, seances) {
 	sessionsList.innerHTML = "";
+	// Очищаем селект залов только если он существует
+	if (hallSelect) {
+		hallSelect.innerHTML = "";
+	}
+	
 	halls.forEach((element) => {
 		sessionsList.insertAdjacentHTML('beforeend', 
 			
@@ -26,7 +31,9 @@ function renderSessionsList (halls, seances) {
 							<div class="seances-delete visually-hidden"></div>
                         </li>`
 			)
-		hallSelect.insertAdjacentHTML('beforeend', `<option value="${element.id}">${element.hall_name}</option>`)
+		if (hallSelect) {
+			hallSelect.insertAdjacentHTML('beforeend', `<option value="${element.id}">${element.hall_name}</option>`)
+		}
 	});
 
 	const hallTimelines = [...sessionsList.children];

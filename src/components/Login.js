@@ -46,9 +46,11 @@ const Login = () => {
   return (
     <div className="container admin">
       <header className="admin-header">
-        <h1 className="admin-header__logo logo">
-          идём<span className="logo-letter">в</span>кино
-        </h1>
+        <a href="/" className="logo-link">
+          <h1 className="admin-header__logo logo">
+            идём<span className="logo-letter">в</span>кино
+          </h1>
+        </a>
         <p className="admin-header__text">Администраторррская</p>
       </header>
       

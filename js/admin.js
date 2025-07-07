@@ -3,9 +3,13 @@ let hallItems;
 let filmItems;
 let seanceItems;
 let dragged;
+let isDataLoaded = false;
 
 async function getData() {
-	await data.getData();
+	if (!isDataLoaded) {
+		await data.getData();
+		isDataLoaded = true;
+	}
 
 	console.log(data.info)
 	hallItems = data.info.halls;

@@ -74,7 +74,23 @@ button:hover{
 	background-color: #bbbbbb;
 }
 
+/* ----Hidden elements---- */
+.hidden {
+    display: none !important;
+}
+
 /* ----Logo---- */
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+.logo-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
 .logo{
     text-transform: uppercase;
     font-size: 34px;

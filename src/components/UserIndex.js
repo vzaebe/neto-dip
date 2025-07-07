@@ -123,9 +123,11 @@ const UserIndex = () => {
     return (
       <div className="user">
         <header className="user-header">
-          <h1 className="user-header__logo logo">
-            идём<span className="logo-letter">в</span>кино
-          </h1>
+          <a href="/" className="logo-link">
+            <h1 className="user-header__logo logo">
+              идём<span className="logo-letter">в</span>кино
+            </h1>
+          </a>
           <button className="user-header__button button" onClick={handleLoginClick}>
             войти
           </button>
@@ -138,9 +140,11 @@ const UserIndex = () => {
   return (
     <div className="user">
       <header className="user-header">
-        <h1 className="user-header__logo logo">
-          идём<span className="logo-letter">в</span>кино
-        </h1>
+        <a href="/" className="logo-link">
+          <h1 className="user-header__logo logo">
+            идём<span className="logo-letter">в</span>кино
+          </h1>
+        </a>
         <button className="user-header__button button" onClick={handleLoginClick}>
           войти
         </button>

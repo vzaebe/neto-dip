@@ -4,6 +4,10 @@ class allData {
 	    return fetch('https://shfe-diplom.neto-server.ru/alldata')
 	    	.then(response => response.json())
 	    	.then(data => this.info = data.result)
+	    	.catch(error => {
+	    		console.error('Ошибка при загрузке данных:', error);
+	    		alert('Ошибка при загрузке данных. Попробуйте обновить страницу.');
+	    	})
   	}
 
 	getSeanceConfig (seanceId) {
@@ -11,6 +15,10 @@ class allData {
 	    .then( response => response.json())
 	    .then(data => {
 	    	this.hallConfig = data.result;
+	    })
+	    .catch(error => {
+	    	console.error('Ошибка при загрузке конфигурации зала:', error);
+	    	alert('Ошибка при загрузке конфигурации зала.');
 	    })
 	}
 
@@ -26,6 +34,10 @@ class allData {
 				console.log(data)
 				renderTicket();
 
+			})
+			.catch(error => {
+				console.error('Ошибка при покупке билета:', error);
+				alert('Ошибка при покупке билета. Попробуйте еще раз.');
 			})
 	}
 
@@ -44,10 +56,14 @@ class allData {
 		    	hallName.value = '';
 		    	addHallPopup.classList.add('visually-hidden');
 		    	this.info.halls = data.result.halls;
+		    	hallItems = this.info.halls;
 				
 		    	renderHallsList(this.info.halls);
 		    	renderSessionsList(this.info.halls, this.info.seances);
-				location.reload(); 
+		    	// Обновляем селекты в других секциях
+		    	renderHallSwitch (document.querySelector('.hallSelectorConfig'), this.info.halls);
+		    	renderHallSwitch (document.querySelector('.hallSelectorPrices'), this.info.halls);
+		    	renderHallSwitch (document.querySelector('.hallSelectorSales'), this.info.halls);
 		    });
 			
 	}
@@ -61,10 +77,15 @@ class allData {
 			    .then( data => {
 			    	this.info.halls = data.result.halls;
 			    	this.info.seances = data.result.seances;
+			    	hallItems = this.info.halls;
+			    	seanceItems = this.info.seances;
 					
 			    	renderHallsList(this.info.halls);
 			    	renderSessionsList(this.info.halls, this.info.seances);
-					location.reload();
+			    	// Обновляем селекты в других секциях
+			    	renderHallSwitch (document.querySelector('.hallSelectorConfig'), this.info.halls);
+			    	renderHallSwitch (document.querySelector('.hallSelectorPrices'), this.info.halls);
+			    	renderHallSwitch (document.querySelector('.hallSelectorSales'), this.info.halls);
 				});	
 	}
 
@@ -78,7 +99,10 @@ class allData {
 		    .then( data => {
 		    	console.log(data);
 		    	this.info.halls.find(x => x.id == data.result.id).hall_config = data.result.hall_config;
-				location.reload();
+		    })
+		    .catch(error => {
+		    	console.error('Ошибка при сохранении конфигурации зала:', error);
+		    	alert('Ошибка при сохранении конфигурации зала.');
 		    })
 	}
 
@@ -92,7 +116,10 @@ class allData {
 		    	console.log( data );
 		    	this.info.halls.find(x => x.id == data.result.id).hall_price_standart = data.result.hall_price_standart;
 		    	this.info.halls.find(x => x.id == data.result.id).hall_price_vip = data.result.hall_price_vip;
-				location.reload();
+		    })
+		    .catch(error => {
+		    	console.error('Ошибка при сохранении цен:', error);
+		    	alert('Ошибка при сохранении цен.');
 		    })
 	}
 
@@ -118,7 +145,10 @@ class allData {
 		    	filmItems = this.info.films;
 
 		    	renderFilmsList(this.info.films);
-				location.reload();
+		    })
+		    .catch((error) => {
+		    	console.error('Ошибка при добавлении фильма:', error);
+		    	alert('Произошла ошибка при добавлении фильма. Попробуйте еще раз.');
 		    })
 	}	
 	
@@ -132,32 +162,37 @@ class allData {
 
 		    	this.info.films = data.result.films;
 		    	this.info.seances = data.result.seances;
+		    	filmItems = this.info.films;
+		    	seanceItems = this.info.seances;
 
 		    	renderFilmsList(this.info.films);
 		    	renderSessionsList(this.info.halls, this.info.seances);
-				location.reload();
 			});
 	}
 
 	addSession(params) {
 		fetch( 'https://shfe-diplom.neto-server.ru/seance', {
 			method: 'POST',
-
 			body: params
 		})
-		    .then( (response) => response.json())
-		    .then( (data) => {
-		    	console.log(data) 
-		    	if (data.success) {
-
-			    	timeInput.value = '10:00';
-			    	addSessionPopup.classList.toggle('visually-hidden');
-
-			    	this.info.seances = data.result.seances;
-			    	
-			    	renderSessionsList(this.info.halls, this.info.seances);
-		    	}
-		    })
+			.then( (response) => response.json())
+			.then( (data) => {
+				console.log(data)
+				if (data.success === false && data.error) {
+					alert(data.error);
+					return;
+				}
+				if (data.success) {
+					timeInput.value = '10:00';
+					addSessionPopup.classList.toggle('visually-hidden');
+					this.info.seances = data.result.seances;
+					renderSessionsList(this.info.halls, this.info.seances);
+				}
+			})
+			.catch((error) => {
+				console.error('Ошибка при добавлении сеанса:', error);
+				alert('Произошла ошибка при добавлении сеанса. Попробуйте еще раз.');
+			})
 	}
 
 	deleteSession(transferData) {
@@ -169,6 +204,7 @@ class allData {
 			    	console.log( data );
 
 			    	this.info.seances = data.result.seances;
+			    	seanceItems = this.info.seances;
 
 			    	renderSessionsList(this.info.halls, this.info.seances);
 				});
@@ -187,6 +223,10 @@ class allData {
 	    	hallItems = this.info.halls;
 
 	    	launchInfo(hall.id);
+	    })
+	    .catch(error => {
+	    	console.error('Ошибка при открытии/закрытии зала:', error);
+	    	alert('Ошибка при открытии/закрытии зала.');
 	    });
 	}
 }

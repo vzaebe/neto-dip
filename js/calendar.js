@@ -5,8 +5,8 @@ const dayButtonsCount = 6;
 
 let isCalendarSwitched = 0;
 let todayDate = new Date(today);
-let	chosenDate = `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${todayDate.getDate()}`;
-const todayDateString = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+let	chosenDate = `${todayDate.getFullYear()}-${String(todayDate.getMonth() + 1).padStart(2, '0')}-${String(todayDate.getDate()).padStart(2, '0')}`;
+const todayDateString = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
 let dateItem = new Date(todayDate);
 
@@ -60,7 +60,7 @@ function renderCalendar (date) {
 		if (dateItem.getDay() === 0 || dateItem.getDay() === 6) {
 			element.classList.add('nav__item-red')
 		}
-		element.setAttribute('data-date', `${dateItem.getFullYear()}-${dateItem.getMonth() + 1}-${dateItem.getDate()}`)
+		element.setAttribute('data-date', `${dateItem.getFullYear()}-${String(dateItem.getMonth() + 1).padStart(2, '0')}-${String(dateItem.getDate()).padStart(2, '0')}`)
 		element.addEventListener('click', e => {
 			if (index !== activeDate) {
 				calendarItems[activeDate].classList.remove('nav__item_active');
@@ -83,7 +83,7 @@ function renderCalendar (date) {
 	calendarSwitch.appendChild(calendarSwitchText);
 
 	if (isCalendarSwitched === 0) {
-		chosenDate = `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${todayDate.getDate()}`;
+		chosenDate = `${todayDate.getFullYear()}-${String(todayDate.getMonth() + 1).padStart(2, '0')}-${String(todayDate.getDate()).padStart(2, '0')}`;
 
 		calendar.appendChild(calendarSwitch)
 		calendarSwitchText.textContent = '>';
