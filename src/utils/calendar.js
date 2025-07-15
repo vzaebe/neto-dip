@@ -47,13 +47,22 @@ export const generateWeekDates = (startDate = new Date()) => {
 };
 
 export const isTimePassed = (timeString, dateString) => {
-  if (dateString !== getTodayDateString()) {
+  const todayString = getTodayDateString();
+  
+  // Если выбранная дата меньше сегодняшней - сеанс прошел
+  if (dateString < todayString) {
+    return true;
+  }
+  
+  // Если выбранная дата больше сегодняшней - сеанс в будущем
+  if (dateString > todayString) {
     return false;
   }
   
+  // Если выбранная дата равна сегодняшней - проверяем время
   const now = new Date();
-  const currentTime = `${now.getHours()}${String(now.getMinutes()).padStart(2, '0')}`;
-  const seanceTime = timeString.replace(':', '');
+  const currentTime = `${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+  const seanceTime = timeString.replace(':', '').padStart(4, '0');
   
   return currentTime > seanceTime;
 }; 

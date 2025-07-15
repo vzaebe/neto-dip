@@ -93,7 +93,7 @@ function renderFilmSeances (film, filmSeances) {
 			movieTime.classList.add('movie-seance__time-item');
 			if (chosenDate == todayDateString) {
 				const time = new Date();
-				const timeString = `${time.getHours()}${String(time.getMinutes()).padStart(2, '0')}`
+				const timeString = `${String(time.getHours()).padStart(2, '0')}${String(time.getMinutes()).padStart(2, '0')}`
 				if (timeString > element.seance_time.replace(':', '')) {
 					movieTime.classList.add('movie-seance__time-item_disabled')
 				}
